@@ -1,7 +1,7 @@
 import 'dart:convert';
-
 import 'package:blog/core/http_connector.dart';
 import 'package:blog/dto/auth_req_dto.dart';
+import 'package:blog/util/response_util.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 
@@ -17,9 +17,9 @@ class UserApiRepository {
 
   Future<ResponseDto> join(JoinReqDto joinReqDto) async {
     String requestBody = jsonEncode(joinReqDto.toJson());
+
     Response response = await _ref.read(httpConnector).post("/join", requestBody);
-    Map<String, dynamic> responseMap = jsonDecode(response.body); // 문자열 -> Map
-    ResponseDto responseDto = ResponseDto.fromJson(responseMap); // Map -> Dart Class
-    return responseDto; // ResponseDto 응답
+
+    return responseToResponseDto(response); // ResponseDto 응답
   }
 }

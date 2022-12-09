@@ -1,5 +1,5 @@
+import 'package:blog/domain/user/user.dart';
 import 'package:intl/intl.dart';
-import '../user/user.dart';
 
 class Post {
   final int? id;
@@ -17,6 +17,9 @@ class Post {
     this.created,
     this.updated,
   });
+
+  Map<String, dynamic> toJson() =>
+      {"id": id, "title": title, "content": content, "user": user, "created": created, "updated": updated};
 
   // 통신을 위해서 json 처럼 생긴 문자열 {"id":1} => Dart 오브젝트
 

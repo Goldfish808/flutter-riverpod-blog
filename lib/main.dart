@@ -7,6 +7,8 @@ import 'package:blog/veiw/pages/user/user_info_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import 'core/routers.dart';
+
 void main() {
   runApp(
     ProviderScope(
@@ -37,14 +39,4 @@ class MyApp extends StatelessWidget {
       },
     );
   }
-}
-
-class Routers {
-  static String home = "/home"; //이렇게 쓰면 Router.home 하면 /home 으로 이동한다고 인식할 수 있어 편함
-  static String detail = "/detail";
-  static String updateForm = "/updateForm";
-  static String writeForm = "/writeForm";
-  static String joinForm = "/joinForm";
-  static String loginForm = "/loginForm";
-  static String userInfo = "/userInfo";
 }

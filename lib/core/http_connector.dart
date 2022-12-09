@@ -6,7 +6,7 @@ final httpConnector = Provider<HttpConnector>((ref) {
 });
 
 class HttpConnector {
-  final host = "http://localhost:8080";
+  final host = "http://172.18.240.1:8080";
   final headers = {"Content-Type": "application/json; charset=utf-8"};
   final Client _client = Client();
 

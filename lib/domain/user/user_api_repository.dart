@@ -5,6 +5,7 @@ import 'package:blog/util/response_util.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http/http.dart';
 import 'package:logger/logger.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../dto/reponse_dto.dart';
 
@@ -30,6 +31,10 @@ class UserApiRepository {
     Response response = await _ref.read(httpConnector).post("/login", requestBody);
 
     String jwtToken = response.headers["authorization"].toString();
+    // ----
+    final prefs = await SharedPreferences.getInstance();
+    prefs.setString("jwtToken", jwtToken);
+    // ---- 자동 로그인을 위해서 필요함
     Logger().d(jwtToken);
 
     return responseToResponseDto(response); // ResponseDto 응답

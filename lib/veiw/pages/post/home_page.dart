@@ -1,18 +1,22 @@
+import 'package:blog/provider/auth_provider.dart';
+import 'package:blog/veiw/pages/post/home_page_view_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/size.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   @override
-  State<HomePage> createState() => _HomePageState();
+  ConsumerState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends ConsumerState<HomePage> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   var scaffodKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
+    final hvm = ref.watch(homePageViewModel.notifier);
     return Scaffold(
       key: scaffodKey,
       floatingActionButton: FloatingActionButton(
@@ -27,7 +31,7 @@ class _HomePageState extends State<HomePage> {
       ),
       drawer: _navigation(context),
       appBar: AppBar(
-        title: Text("false"),
+        title: _buildAppBarTitle(hvm),
       ),
       body: RefreshIndicator(
         key: refreshKey,
@@ -49,6 +53,14 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  Text _buildAppBarTitle(HomePageViewModel hvm) {
+    if (hvm.ap.isLogin) {
+      return Text("로그인 한 유저 이름 : ${hvm.ap.jwtToken}");
+    } else {
+      return Text("로그인 되지 않은 상태입니다");
+    }
   }
 
   Widget _navigation(BuildContext context) {
